@@ -214,7 +214,7 @@ func (v *lexer) recognizeNumberToken() {
 			v.consume()
 		}
 		v.pushToken(TOKEN_NUMBER)
-	} else if v.peek(0) == 'b' {
+	} else if v.peek(0) == 'b' || v.peek(0) == 'B' {
 		// Binary
 		v.consume()
 		for isBinaryDigit(v.peek(0)) || v.peek(0) == '_' {

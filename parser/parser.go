@@ -879,7 +879,6 @@ func (v *parser) parseEnumDecl() *EnumDecl {
 		v.err("Expected identifier after `enum` keyword, found `%s`", v.peek(0).Contents)
 	}
 
-
 	enum := &EnumDecl{Name: v.consumeToken().Contents, Body: make([]*EnumVal, 0)}
 
 	if isReservedKeyword(enum.Name) {
@@ -912,7 +911,7 @@ func (v *parser) parseEnumDecl() *EnumDecl {
 				} else if !v.tokenMatches(1, lexer.TOKEN_SEPARATOR, "}") {
 					v.err("Missing comma in `enum` %s", enum.Name)
 				}
-				
+
 				enum.Body = append(enum.Body, &EnumVal{Name: name, Value: value})
 			}
 		}
@@ -920,7 +919,6 @@ func (v *parser) parseEnumDecl() *EnumDecl {
 	}
 	return enum
 }
-
 
 func (v *parser) parseImplDecl() *ImplDecl {
 	if !v.tokenMatches(0, lexer.TOKEN_IDENTIFIER, KEYWORD_IMPL) {
@@ -1429,7 +1427,7 @@ func (v *parser) parseNumericLiteral() Expr {
 			}
 		}
 		return hex
-	} else if strings.HasPrefix(num, "0b") {
+	} else if strings.HasPrefix(num, "0b") || strings.HasPrefix(num, "0B") {
 		// Binary integer
 		bin := &IntegerLiteral{}
 		for _, r := range num[2:] {
